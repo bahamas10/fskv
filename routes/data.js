@@ -1,5 +1,4 @@
 var fs = require('fs');
-var path = require('path');
 
 var staticroute = require('static-route')({autoindex: false, logger: function(){}});
 
