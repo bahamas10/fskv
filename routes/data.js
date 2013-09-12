@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-var staticroute = require('static-route')({autoindex: false, logger: function(){}});
+var staticroute = require('static-route')({autoindex: false});
 
 module.exports = data;
 

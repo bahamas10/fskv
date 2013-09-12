@@ -90,7 +90,8 @@ http.createServer(onrequest).listen(opts.port, opts.host, started);
 
 // server started
 function started() {
-  if (!opts.log) console.log = function() {};
+  if (!opts.log)
+    console.log = function() {};
   if (opts.buffer) {
     // buffer the logs
     var logbuffer = require('log-buffer');
@@ -106,11 +107,18 @@ function started() {
 // request callback
 function onrequest(req, res) {
   easyreq(req, res);
-  if (opts.log) accesslog(req, res);
+  if (opts.log)
+    accesslog(req, res);
 
   // route
-  var route = router.match(req.urlparsed.pathname);
-  if (!route) return res.notfound();
+  try {
+    var route = router.match(req.urlparsed.pathname);
+  } catch (e) {
+    if (opts.log)
+      console.error('router failed');
+  }
+  if (!route)
+    return res.notfound();
 
   // route it
   route.fn(req, res, route.params);
