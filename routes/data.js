@@ -1,18 +1,18 @@
 var fs = require('fs');
 
 var staticroute = require('static-route')({
-  autoindex: false,
-  logger: function() {}
+  autoindex: false
 });
 
 module.exports = data;
 
 function data(req, res) {
-  var uri = req.urlparsed.pathname.replace('/data/', '');
-  var path = decodeURI(uri);
+  var uri = decodeURIComponent(req.urlparsed.pathname);
+  var file = uri.replace(/^\/data\//, '');
+  console.log('file => %s', file);
 
   // validate key
-  if (!safekey(path)) {
+  if (!safekey(file)) {
     res.json({error: 'Key contains illegal characters'}, 400);
     return;
   }
@@ -22,12 +22,12 @@ function data(req, res) {
     case 'HEAD':
     case 'GET':
       // rely on static-route... for now
-      req.urlparsed.pathname = '/' + uri;
+      req.urlparsed.pathname = req.urlparsed.pathname.replace('/data', '');
       staticroute(req, res);
       break;
     case 'PUT':
       var exclusive = req.urlparsed.query.hasOwnProperty('exclusive');
-      var ws = fs.createWriteStream(path, {flags: exclusive ? 'wx' : 'w'});
+      var ws = fs.createWriteStream(file, {flags: exclusive ? 'wx' : 'w'});
 
       req.pipe(ws);
 
@@ -43,9 +43,8 @@ function data(req, res) {
 
       break;
     case 'DELETE':
-      fs.unlink(path, function(err) {
+      fs.unlink(file, function(err) {
         if (err) {
-          console.log(err.message);
           var code = err.code === 'ENOENT' ? 404 : 500;
           res.json({error: err.message, code: err.code}, code);
         } else {
