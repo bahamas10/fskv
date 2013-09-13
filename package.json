@@ -15,12 +15,12 @@
   "homepage": "https://github.com/bahamas10/fskv",
   "license": "MIT",
   "dependencies": {
-    "posix-getopt": "~1.0.0",
     "access-log": "~0.2.2",
+    "easyreq": "~0.0.4",
+    "latest": "~0.1.2",
     "log-buffer": "~0.0.3",
-    "easyreq": "~0.0.2",
-    "latest": "~0.1.0",
-    "static-route": "~0.0.5",
-    "routes": "~0.2.0"
+    "posix-getopt": "~1.0.0",
+    "routes": "~0.2.0",
+    "static-route": "~0.0.5"
   }
 }
