@@ -1,6 +1,6 @@
 {
   "name": "fskv",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A filesystem based key-value store in Node.JS via HTTP",
   "author": "Dave Eddy <dave@daveeddy.com> (http://www.daveeddy.com)",
   "main": "./fskv.js",
