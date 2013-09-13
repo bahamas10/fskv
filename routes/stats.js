@@ -1,18 +1,24 @@
+var statsobj = require('../lib/stats');
+var version = 'v' + require('../package.json').version;
+
 var started = Date.now();
-var version = require('../package.json').version;
 
 module.exports = stats;
 
 function stats(req, res) {
   var ret = {
-    started: started,
-    nodeversion: process.version,
-    fskvversion: version,
-    pid: process.pid,
-    dir: process.cwd(),
-    mem: process.memoryUsage(),
-    arch: process.arch,
-    platform: process.platform
+    system: {
+      arch: process.arch,
+      dir: process.cwd(),
+      fskvversion: version,
+      mem: process.memoryUsage(),
+      nodeversion: process.version,
+      now: Date.now(),
+      pid: process.pid,
+      platform: process.platform,
+      started: started,
+    },
+    http: statsobj
   };
   res.json(ret);
 }

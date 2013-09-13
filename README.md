@@ -129,19 +129,33 @@ You can hit `/ping` or `/stats` to see process health.
     pong
     $ curl localhost:9000/stats | json
     {
-      "started": 1367545690361,
-      "nodeversion": "v0.8.8",
-      "fskvversion": "0.0.0",
-      "pid": 2382,
-      "dir": "/Users/dave/dev/fskv/data",
-      "mem": {
-        "rss": 16261120,
-        "heapTotal": 9214976,
-        "heapUsed": 4967640
+      "system": {
+        "arch": "x64",
+        "dir": "/Users/dave/dev/fskv/data",
+        "fskvversion": "v0.0.5",
+        "mem": {
+          "rss": 17055744,
+          "heapTotal": 10312960,
+          "heapUsed": 4666520
+        },
+        "nodeversion": "v0.10.10",
+        "now": 1379090221712,
+        "pid": 16906,
+        "platform": "darwin",
+        "started": 1379090209770
       },
-      "arch": "x64",
-      "platform": "darwin"
+      "http": {
+        "requestmethods": {
+          "DELETE": 1,
+          "HEAD": 1
+        },
+        "totalrequests": 2
+      }
     }
+
+`/stats` contains information both about the running process, and how many
+requests have been processed over HTTP.  Note: the stats counters will only
+be bumped if a request is made to `/data/*`
 
 <a name="methods" />
 

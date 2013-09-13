@@ -1,5 +1,7 @@
 var fs = require('fs');
 
+var stats = require('../lib/stats');
+
 var staticroute = require('static-route')({
   autoindex: false,
   logger: function () {}
@@ -8,6 +10,8 @@ var staticroute = require('static-route')({
 module.exports = data;
 
 function data(req, res) {
+  stats.addrequest(req.method);
+
   var uri = decodeURIComponent(req.urlparsed.pathname);
   var file = uri.replace(/^\/data\//, '');
 
