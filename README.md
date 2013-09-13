@@ -26,7 +26,7 @@ First, install [Node.JS](http://nodejs.org/).  Then:
 Features
 --------
 
-- HTTP API for storing, modifying, and deleting data
+- HTTP API for storing, modifying, streaming, and deleting data
 - Flat text files used for storage
 - HTTP Caching headers (ETag, Last-Modified, If-None-Match)
 
@@ -39,7 +39,9 @@ Fire up `fskv` by running:
 
     $ mkdir data
     $ fskv
-    [2013-05-03T01:39:48.227Z] server started on http://localhost:9000
+    server started on http://localhost:9000
+    127.0.0.1 - - [13/Sep/2013:01:54:02 -0400] "PUT /data/fskv-client-test HTTP/1.1" 200 34 "-" "-"
+    127.0.0.1 - - [13/Sep/2013:01:54:03 -0400] "PUT /data/fskv-delete-test HTTP/1.1" 200 34 "-" "-"
 
 This will start the HTTP server listening on `localhost` on port 9000,
 and serve out of `./data`.

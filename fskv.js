@@ -18,6 +18,8 @@ var getopt = require('posix-getopt');
 var package = require('./package.json');
 var router = require('./router');
 
+var logformat = ':ip - :userID [:clfDate] ":method :url HTTP/:httpVersion" :statusCode :contentLength ":referer" ":userAgent"';
+
 function usage() {
   return [
     'Usage: fskv [-b] [-d dir] [-h] [-H host] [-l] [-p port] [-u] [-v]',
@@ -95,11 +97,9 @@ function started() {
   if (opts.buffer) {
     // buffer the logs
     var logbuffer = require('log-buffer');
-    logbuffer(8192, function() { return '[' + new Date().toISOString() + ']: '; });
+    logbuffer(8192);
     // flush every 5 seconds
     setInterval(logbuffer.flush.bind(logbuffer), 5 * 1000);
-  } else {
-    require('log-timestamp');
   }
   console.log('server started on http://%s:%d', opts.host, opts.port);
 }
@@ -108,15 +108,12 @@ function started() {
 function onrequest(req, res) {
   easyreq(req, res);
   if (opts.log)
-    accesslog(req, res);
+    accesslog(req, res, logformat);
 
   // route
   try {
     var route = router.match(req.urlparsed.pathname);
-  } catch (e) {
-    if (opts.log)
-      console.error('router failed');
-  }
+  } catch (e) {}
   if (!route)
     return res.notfound();
 

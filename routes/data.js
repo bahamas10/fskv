@@ -1,7 +1,8 @@
 var fs = require('fs');
 
 var staticroute = require('static-route')({
-  autoindex: false
+  autoindex: false,
+  logger: function () {}
 });
 
 module.exports = data;
@@ -9,7 +10,6 @@ module.exports = data;
 function data(req, res) {
   var uri = decodeURIComponent(req.urlparsed.pathname);
   var file = uri.replace(/^\/data\//, '');
-  console.log('file => %s', file);
 
   // validate key
   if (!safekey(file)) {
