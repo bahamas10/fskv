@@ -18,8 +18,6 @@ var getopt = require('posix-getopt');
 var package = require('./package.json');
 var router = require('./router');
 
-var logformat = ':ip - :userID [:clfDate] ":method :url HTTP/:httpVersion" :statusCode :contentLength ":referer" ":userAgent"';
-
 function usage() {
   return [
     'Usage: fskv [-b] [-d dir] [-h] [-H host] [-l] [-p port] [-u] [-v]',
@@ -108,7 +106,7 @@ function started() {
 function onrequest(req, res) {
   easyreq(req, res);
   if (opts.log)
-    accesslog(req, res, logformat);
+    accesslog(req, res);
 
   // route
   try {
