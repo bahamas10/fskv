@@ -16,7 +16,7 @@ function stats(req, res) {
       now: Date.now(),
       pid: process.pid,
       platform: process.platform,
-      started: started,
+      started: started
     },
     http: statsobj
   };

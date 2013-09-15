@@ -7,15 +7,13 @@
  * License: MIT
  */
 
-var fs = require('fs');
 var http = require('http');
-var path = require('path');
 
 var accesslog = require('access-log');
 var easyreq = require('easyreq');
 var getopt = require('posix-getopt');
 
-var package = require('./package.json');
+var _package = require('./package.json');
 var router = require('./router');
 
 function usage() {
@@ -66,16 +64,15 @@ while ((option = parser.getopt()) !== undefined) {
     case 'n': opts.log = false; break;
     case 'p': opts.port = +option.optarg; break;
     case 'u': // check for updates
-      require('latest').checkupdate(package, function(ret, msg) {
+      require('latest').checkupdate(_package, function(ret, msg) {
         console.log(msg);
         process.exit(ret);
       });
       return;
-    case 'v': console.log(package.version); process.exit(0);
+    case 'v': console.log(_package.version); process.exit(0);
     default: console.error(usage()); process.exit(1);
   }
 }
-var args = process.argv.slice(parser.optind());
 
 // verify the dir by cd'ing there
 try {
@@ -109,8 +106,9 @@ function onrequest(req, res) {
     accesslog(req, res);
 
   // route
+  var route;
   try {
-    var route = router.match(req.urlparsed.pathname);
+    route = router.match(req.urlparsed.pathname);
   } catch (e) {}
   if (!route)
     return res.notfound();
