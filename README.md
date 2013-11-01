@@ -222,8 +222,8 @@ My tweet about the filesystem being the best nosql database.
 
 <blockquote class="twitter-tweet"><p>my favorite db. writes = echo value &gt;
 key.reads = cat key. most languages have built in bindings.</p>&mdash; Dave
-Eddy (@superxero3) <a
-href="https://twitter.com/superxero3/status/310096645356404737">March 8,
+Eddy <a
+href="https://twitter.com/bahamas10_/status/310096645356404737">March 8,
 2013</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
